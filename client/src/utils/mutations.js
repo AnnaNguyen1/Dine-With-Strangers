@@ -35,3 +35,37 @@ export const LOGIN_USER = gql`
     }
   }
 `;
+
+export const ADD_EVENT = gql`
+  mutation addEvent($eventData: InputEvent) {
+    addEvent(eventData: $InputEvent) {
+      eventId
+      restaurantName
+      restaurantAddress
+      image
+      eventDate
+      eventTime
+      description
+      attendeeLimit
+      state
+      userId
+    }
+  }
+`;
+
+export const DELETE_EVENT = gql`
+  mutation deleteEvent($eventId: ID!) {
+    deleteEvent(eventId: $eventId) {
+      eventId
+      restaurantName
+      restaurantAddress
+      image
+      eventDate
+      eventTime
+      description
+      attendeeLimit
+      state
+      userId
+    }
+  }
+`;

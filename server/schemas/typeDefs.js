@@ -22,6 +22,7 @@ const typeDefs = gql`
     attendeeLimit: Int
     state: String
     attendees: [User]
+    userId: String
   }
 
   input InputEvent {
@@ -33,6 +34,7 @@ const typeDefs = gql`
     eventTime: String
     attendeeLimit: Int
     state: String
+    userId: String
   }
 
   type Auth {

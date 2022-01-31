@@ -6,17 +6,27 @@ import Auth from "../utils/auth";
 
 export default function Home() {
   return (
-    <div className="home">
+    <main className="home">
       {Auth.loggedIn() ? (
         <EventList />
       ) : (
         <>
           <div id="home-image">
-            <Image src={homeImg} floated="left" />
+            <Image src={homeImg} />
           </div>
-          <EventList />
+          <div id="home-sub-header">
+            <h2>
+              Looking to meet new people who share the same tastes as you?
+            </h2>
+            <h5>
+              Find events near you and let the host know you are attending!
+            </h5>
+          </div>
+          <div id="event-list">
+            <EventList />
+          </div>
         </>
       )}
-    </div>
+    </main>
   );
 }

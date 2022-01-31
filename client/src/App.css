@@ -50,3 +50,14 @@ h1 {
   flex-wrap: wrap;
   justify-content: space-evenly;
 }
+
+#home-sub-header {
+  position: relative;
+  margin: 5em;
+  text-align: center;
+}
+
+#event-card {
+  padding: 0.5em;
+  margin: 3em;
+}

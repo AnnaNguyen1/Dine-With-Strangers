@@ -52,7 +52,11 @@ const NavBar = () => {
               onClose={() => setOpen(false)}
               onOpen={() => setOpen(true)}
               open={open}
-              trigger={<Button primary>Signup</Button>}
+              trigger={
+                <Button basic color="teal" content="Blue">
+                  Signup
+                </Button>
+              }
             >
               <Modal.Content>
                 <SignupForm handleModalClose={() => setOpen(false)} />

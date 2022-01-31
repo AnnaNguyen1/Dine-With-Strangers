@@ -59,7 +59,7 @@ const SignupForm = () => {
       />
 
       <Form.Input
-        label="Last Name"
+        label="Email"
         type="text"
         placeholder="joebriggs@test.com"
         name="email"
@@ -67,8 +67,8 @@ const SignupForm = () => {
         value={userFormData.email}
       />
       <Form.Input
-        label="Last Name"
-        type="text"
+        label="Password"
+        type="password"
         placeholder="*******"
         name="password"
         onChange={handleInputChange}

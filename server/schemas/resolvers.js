@@ -1,15 +1,23 @@
 const { User, Event } = require("../models");
-const { AuthenticationError } = require("apollo-server-express");
+const {
+  AuthenticationError,
+  UserInputError,
+} = require("apollo-server-express");
 const { signToken } = require("../utils/auth");
 
 const resolvers = {
   Query: {
-    me: async (parent, args, context) => {
+    me: async (root, args, context) => {
       if (context.user) {
         return User.findOne({ _id: context.user._id });
       }
       throw new AuthenticationError("You need to be logged in!");
     },
+
+    users: async () => {
+      return User.find({});
+    },
+
     // return all events
     events: async () => {
       return await Event.find();
@@ -41,15 +49,26 @@ const resolvers = {
       return { token, user };
     },
     addUser: async (root, { firstName, lastName, email, password }) => {
-      const user = await User.create({ firstName, lastName, email, password });
-      const token = signToken(user);
+      let user = await User.findOne({ email });
+      console.log(user);
+      if (user) {
+        throw new UserInputError("Email already exists", {
+          errors: {
+            email: "Login!",
+          },
+        });
+      }
 
+      user = await User.create({ firstName, lastName, email, password });
+      console.log(user);
+      const token = signToken(user);
+      console.log(token);
       return { token, user };
     },
     addEvent: async (root, { eventData }, context) => {
       if (context.user) {
         const updatedEvent = await Event.create({
-          eventData,
+          ...eventData,
           userId: context.user._id,
         });
 
@@ -57,10 +76,10 @@ const resolvers = {
       }
       throw new AuthenticationError("You need to be logged in!");
     },
-    deleteEvent: async (root, { eventId }, context) => {
+    deleteEvent: async (root, { _id }, context) => {
       if (context.user) {
         const updatedEvent = await Event.findOneAndDelete({
-          _id: eventId,
+          _id,
           userId: context.user._id,
         });
 
@@ -68,44 +87,44 @@ const resolvers = {
       }
       throw new AuthenticationError("You need to be logged in!");
     },
-    favouriteEvent: async (root, { eventId }, context) => {
+    favouriteEvent: async (root, { _id }, context) => {
       if (context.user) {
         const updatedUser = await User.findOneAndUpdate(
           { _id: context.user._id },
-          { $push: { favourites: eventId } },
+          { $push: { favourites: _id } },
           { new: true }
         );
         return updatedUser;
       }
       throw new AuthenticationError("You need to be logged in!");
     },
-    removeFavourite: async (root, { eventId }, context) => {
+    removeFavourite: async (root, { _id }, context) => {
       if (context.user) {
         const updatedUser = await User.findOneAndUpdate(
           { _id: context.user._id },
-          { $pull: { favourites: { eventId } } },
+          { $pull: { favourites: { _id } } },
           { new: true }
         );
         return updatedUser;
       }
       throw new AuthenticationError("You need to be logged in!");
     },
-    attendEvent: async (root, { eventId }, context) => {
+    attendEvent: async (root, { _id }, context) => {
       if (context.user) {
         const updatedUser = await User.findOneAndUpdate(
           { _id: context.user._id },
-          { $push: { attending: eventId } },
+          { $push: { attending: _id } },
           { new: true }
         );
         return updatedUser;
       }
       throw new AuthenticationError("You need to be logged in!");
     },
-    unattendEvent: async (root, { eventId }, context) => {
+    unattendEvent: async (root, { _id }, context) => {
       if (context.user) {
         const updatedUser = await User.findOneAndUpdate(
           { _id: context.user._id },
-          { $pull: { attending: { eventId } } },
+          { $pull: { attending: { _id } } },
           { new: true }
         );
         return updatedUser;

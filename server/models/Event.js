@@ -16,11 +16,6 @@ const eventSchema = new Schema({
     type: String,
   },
   eventDate: {
-    type: Date,
-    default: Date.now,
-    required: true,
-  },
-  eventTime: {
     type: String,
     required: true,
   },
@@ -31,11 +26,6 @@ const eventSchema = new Schema({
     type: Number,
     min: 1,
     default: 1,
-  },
-  state: {
-    type: String,
-    enum: ["VIC", "NSW", "QLD", "SA", "NT", "TAS", "WA"],
-    default: "VIC",
   },
   userId: {
     type: Schema.Types.ObjectId,

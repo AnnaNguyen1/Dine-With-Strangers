@@ -1,15 +1,14 @@
-import { Link } from "react-router-dom";
 import SignupForm from "./SignupForm";
 import LoginForm from "./LoginForm";
 import Auth from "../utils/auth";
 import logo from "../images/logo.jpg";
 
-import React, { useState } from "react";
-import { Button, Modal, Image } from "semantic-ui-react";
+import React from "react";
+import { Button, Image } from "semantic-ui-react";
+import { Modal } from "./Modal";
+import { Menu } from "./Menu";
 
 const NavBar = () => {
-  const [open, setOpen] = useState(false);
-
   return (
     <div className="navbar">
       <ul>
@@ -22,47 +21,27 @@ const NavBar = () => {
 
         {Auth.loggedIn() ? (
           <>
-            <li>
-              <h3 as={Link} to="/">
-                Events Near Me
-              </h3>
-            </li>
-            <li>
-              <h3 as={Link} to="/profile">
-                Profile
-              </h3>
-            </li>
-            <li>
-              <h3 onClick={Auth.logout}>Log Out</h3>
+            <li id="loggedInMenuItems">
+              <Menu />
             </li>
           </>
         ) : (
-          <li className="modals">
-            <Modal
-              onClose={() => setOpen(false)}
-              onOpen={() => setOpen(true)}
-              open={open}
-              trigger={<Button>Login</Button>}
-            >
-              <Modal.Content>
-                <LoginForm handleModalClose={() => setOpen(false)} />
-              </Modal.Content>
-            </Modal>
-            <Modal
-              onClose={() => setOpen(false)}
-              onOpen={() => setOpen(true)}
-              open={open}
-              trigger={
-                <Button basic color="teal" content="Blue">
-                  Signup
-                </Button>
-              }
-            >
-              <Modal.Content>
-                <SignupForm handleModalClose={() => setOpen(false)} />
-              </Modal.Content>
-            </Modal>
-          </li>
+          <>
+            <li className="modals">
+              <Modal
+                trigger={<Button id="loginBtn">Log In</Button>}
+                content={<LoginForm />}
+              />
+              <Modal
+                trigger={
+                  <Button basic color="teal" content="Blue" id="signupBtn">
+                    Sign Up
+                  </Button>
+                }
+                content={<SignupForm />}
+              />
+            </li>
+          </>
         )}
       </ul>
     </div>

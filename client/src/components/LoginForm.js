@@ -32,7 +32,7 @@ const LoginForm = () => {
     <Form size="small" onSubmit={handleFormSubmit}>
       <h2>Log In</h2>
       <Form.Input
-        label="Last Name"
+        label="Email"
         type="text"
         placeholder="joebriggs@test.com"
         name="email"
@@ -40,8 +40,8 @@ const LoginForm = () => {
         value={userFormData.email}
       />
       <Form.Input
-        label="Last Name"
-        type="text"
+        label="Password"
+        type="password"
         placeholder="*******"
         name="password"
         onChange={handleInputChange}

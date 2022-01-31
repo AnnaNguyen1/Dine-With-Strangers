@@ -12,13 +12,21 @@ const typeDefs = gql`
     eventCount: Int
   }
 
+  #  type Address {
+  #    address1: string
+  #    address2: string
+  #   suburb: string
+  #   postcode: string
+  #   state: string
+  #   country: string;
+  # }
+
   type Event {
-    eventId: ID!
+    _id: ID
     restaurantName: String
     restaurantAddress: String
     image: String
     eventDate: String
-    eventTime: String
     description: String
     attendeeLimit: Int
     state: String
@@ -26,12 +34,10 @@ const typeDefs = gql`
   }
 
   input InputEvent {
-    eventId: ID!
     restaurantName: String
     restaurantAddress: String
     image: String
     eventDate: String
-    eventTime: String
     description: String
     attendeeLimit: Int
     state: String
@@ -45,6 +51,7 @@ const typeDefs = gql`
 
   type Query {
     me: User
+    users: User
     events: [Event]
     singleEvent(_id: ID!): Event
   }

@@ -2,13 +2,14 @@ import React from "react";
 import { Image } from "semantic-ui-react";
 import homeImg from "../images/homeimg.jpg";
 import EventList from "../components/EventList";
+import Profile from "./Profile";
 import Auth from "../utils/auth";
 
 export default function Home() {
   return (
     <main className="home">
       {Auth.loggedIn() ? (
-        <EventList />
+        <Profile />
       ) : (
         <>
           <div id="home-image">

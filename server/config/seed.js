@@ -2,7 +2,7 @@ const db = require("./connection");
 const { User, Event } = require("../models");
 
 db.once("open", async () => {
-  // await Event.deleteMany();
+  await Event.deleteMany();
 
   // const events = await Event.insertMany([
   //   {
@@ -83,7 +83,6 @@ db.once("open", async () => {
   await User.deleteMany();
 
   await User.create({
-    // _id: 1111,
     firstName: "Anna",
     lastName: "Kelly",
     email: "akelly@test.com",
@@ -94,7 +93,6 @@ db.once("open", async () => {
   });
 
   await User.create({
-    // _id: 1112,
     firstName: "Pamela",
     lastName: "Washington",
     email: "pamwashington@test.com",
@@ -105,11 +103,19 @@ db.once("open", async () => {
   });
 
   await User.create({
-    // _id: 1113,
     firstName: "Elijah",
     lastName: "Hold",
     email: "eholt@testmail.com",
     password: "password12345",
+    // attending: [events[1]._id],
+    // events: [events[2]._id, events[3]._id, events[4]._id, events[5]._id],
+  });
+
+  await User.create({
+    firstName: "Anna",
+    lastName: "Nguyen",
+    email: "annatest@test.com",
+    password: "annatest",
     // attending: [events[1]._id],
     // events: [events[2]._id, events[3]._id, events[4]._id, events[5]._id],
   });

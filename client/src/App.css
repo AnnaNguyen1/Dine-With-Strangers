@@ -41,7 +41,8 @@ h1 {
   font-style: normal;
 }
 
-.modals {
+.modals,
+#loggedInMenuItems {
   padding-top: 2em;
 }
 
@@ -58,6 +59,11 @@ h1 {
 }
 
 #event-card {
+  padding: 0.5em;
+  margin: 3em;
+}
+
+.tabs {
   padding: 0.5em;
   margin: 3em;
 }

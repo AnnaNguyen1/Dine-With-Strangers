@@ -5,11 +5,11 @@ export const ADD_USER = gql`
     $firstName: String!
     $lastName: String!
     $email: String!
-    $password: String
+    $password: String!
   ) {
     addUser(
       firstName: $firstName
-      lastName: $lastname
+      lastName: $lastName
       email: $email
       password: $password
     ) {
@@ -56,6 +56,23 @@ export const ADD_EVENT = gql`
 export const DELETE_EVENT = gql`
   mutation deleteEvent($eventId: ID!) {
     deleteEvent(eventId: $eventId) {
+      eventId
+      restaurantName
+      restaurantAddress
+      image
+      eventDate
+      eventTime
+      description
+      attendeeLimit
+      state
+      userId
+    }
+  }
+`;
+
+export const ADD_FAVOURITE = gql`
+  mutation addFavourite($eventId: eventId) {
+    addFavourite(eventId: $eventId) {
       eventId
       restaurantName
       restaurantAddress

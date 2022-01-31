@@ -24,6 +24,9 @@ const eventSchema = new Schema({
     type: String,
     required: true,
   },
+  description: {
+    type: String,
+  },
   attendeeLimit: {
     type: Number,
     min: 1,
@@ -33,10 +36,6 @@ const eventSchema = new Schema({
     type: String,
     enum: ["VIC", "NSW", "QLD", "SA", "NT", "TAS", "WA"],
     default: "VIC",
-  },
-  attendees: {
-    type: Schema.Types.ObjectId,
-    ref: "User",
   },
   userId: {
     type: Schema.Types.ObjectId,

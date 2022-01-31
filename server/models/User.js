@@ -2,6 +2,7 @@ const mongoose = require("mongoose");
 
 const { Schema } = mongoose;
 const bcrypt = require("bcrypt");
+
 const Event = require("./Event");
 
 const userSchema = new Schema(
@@ -29,12 +30,6 @@ const userSchema = new Schema(
     },
     favourites: [Event.schema],
     attending: [Event.schema],
-    events: [
-      {
-        type: Schema.Types.ObjectId,
-        ref: "Event",
-      },
-    ],
   },
   {
     toJSON: {

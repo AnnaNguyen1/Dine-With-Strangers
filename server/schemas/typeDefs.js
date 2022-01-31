@@ -19,9 +19,9 @@ const typeDefs = gql`
     image: String
     eventDate: String
     eventTime: String
+    description: String
     attendeeLimit: Int
     state: String
-    attendees: [User]
     userId: String
   }
 
@@ -32,6 +32,7 @@ const typeDefs = gql`
     image: String
     eventDate: String
     eventTime: String
+    description: String
     attendeeLimit: Int
     state: String
     userId: String
@@ -45,8 +46,7 @@ const typeDefs = gql`
   type Query {
     me: User
     events: [Event]
-    event(_id: ID!): Event
-    userEvents(_id: ID!): [Event]
+    singleEvent(_id: ID!): Event
   }
 
   type Mutation {
@@ -57,11 +57,11 @@ const typeDefs = gql`
       email: String!
       password: String!
     ): Auth
-    addEvent(eventData: InputEvent!): Event
+    addEvent(eventData: InputEvent): Event
     deleteEvent(eventId: ID!): Event
-    favouriteEvent(eventData: InputEvent!): User
+    favouriteEvent(eventId: ID!): User
     removeFavourite(eventId: ID!): User
-    attendEvent(eventData: InputEvent!): User
+    attendEvent(eventId: ID!): User
     unattendEvent(eventId: ID!): User
   }
 `;

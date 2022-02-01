@@ -24,9 +24,9 @@ const resolvers = {
     },
 
     // return only one event with all attendee names
-    singleEvent: async (root, { eventId }, context) => {
+    singleEvent: async (root, { _id }, context) => {
       if (context.user) {
-        return await User.findById({ _id: eventId }).populate("events");
+        return await User.findById({ _id: _id }).populate("events");
       }
       throw new AuthenticationError("You need to be logged in!");
     },
@@ -88,12 +88,17 @@ const resolvers = {
       throw new AuthenticationError("You need to be logged in!");
     },
     favouriteEvent: async (root, { _id }, context) => {
+      console.log(_id);
+      const newEvent = { _id };
       if (context.user) {
         const updatedUser = await User.findOneAndUpdate(
           { _id: context.user._id },
-          { $push: { favourites: _id } },
+          {
+            $push: { favourites: newEvent },
+          },
           { new: true }
         );
+        console.log(updatedUser);
         return updatedUser;
       }
       throw new AuthenticationError("You need to be logged in!");

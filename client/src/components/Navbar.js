@@ -29,7 +29,7 @@ const NavBar = () => {
           <>
             <li className="modals">
               <Modal
-                trigger={<Button id="loginBtn">Log In</Button>}
+                trigger={<Button>Log In</Button>}
                 content={<LoginForm />}
               />
               <Modal

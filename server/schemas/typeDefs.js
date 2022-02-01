@@ -8,7 +8,6 @@ const typeDefs = gql`
     email: String!
     favourites: [Event]
     attending: [Event]
-    events: [Event]
     eventCount: Int
   }
 
@@ -28,8 +27,7 @@ const typeDefs = gql`
     image: String
     eventDate: String
     description: String
-    attendeeLimit: Int
-    state: String
+    attendeeLimit: String
     userId: String
   }
 
@@ -39,8 +37,7 @@ const typeDefs = gql`
     image: String
     eventDate: String
     description: String
-    attendeeLimit: Int
-    state: String
+    attendeeLimit: String
     userId: String
   }
 
@@ -65,11 +62,11 @@ const typeDefs = gql`
       password: String!
     ): Auth
     addEvent(eventData: InputEvent): Event
-    deleteEvent(eventId: ID!): Event
-    favouriteEvent(eventId: ID!): User
-    removeFavourite(eventId: ID!): User
-    attendEvent(eventId: ID!): User
-    unattendEvent(eventId: ID!): User
+    deleteEvent(_id: ID!): Event
+    favouriteEvent(_id: ID!): User
+    removeFavourite(_id: ID!): User
+    attendEvent(_id: ID!): User
+    unattendEvent(_id: ID!): User
   }
 `;
 

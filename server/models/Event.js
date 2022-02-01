@@ -14,6 +14,8 @@ const eventSchema = new Schema({
   },
   image: {
     type: String,
+    default:
+      "https://images.unsplash.com/photo-1414235077428-338989a2e8c0?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MXx8ZnJlbmNoJTIwcmVzdGF1cmFudHxlbnwwfHwwfHw%3D&w=1000&q=80",
   },
   eventDate: {
     type: String,
@@ -23,9 +25,7 @@ const eventSchema = new Schema({
     type: String,
   },
   attendeeLimit: {
-    type: Number,
-    min: 1,
-    default: 1,
+    type: String,
   },
   userId: {
     type: Schema.Types.ObjectId,

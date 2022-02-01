@@ -42,7 +42,8 @@ h1 {
 }
 
 .modals,
-#loggedInMenuItems {
+#loggedInMenuItems,
+.form {
   padding-top: 2em;
 }
 
@@ -58,7 +59,7 @@ h1 {
   text-align: center;
 }
 
-#event-card {
+div.ui.card.event-card {
   padding: 0.5em;
   margin: 3em;
 }
@@ -66,4 +67,16 @@ h1 {
 .tabs {
   padding: 0.5em;
   margin: 3em;
+}
+
+.imgBtn {
+  width: 200px;
+  height: 200px;
+  cursor: pointer;
+}
+
+.findEvents {
+  position: relative;
+  text-align: center;
+  margin: 4em;
 }

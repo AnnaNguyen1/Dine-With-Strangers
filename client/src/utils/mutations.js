@@ -38,50 +38,89 @@ export const LOGIN_USER = gql`
 
 export const ADD_EVENT = gql`
   mutation addEvent($eventData: InputEvent) {
-    addEvent(eventData: $InputEvent) {
-      eventId
+    addEvent(eventData: $eventData) {
+      _id
       restaurantName
       restaurantAddress
       image
       eventDate
-      eventTime
       description
       attendeeLimit
-      state
       userId
     }
   }
 `;
 
 export const DELETE_EVENT = gql`
-  mutation deleteEvent($eventId: ID!) {
-    deleteEvent(eventId: $eventId) {
-      eventId
+  mutation deleteEvent($_id: ID!) {
+    deleteEvent(_id: $_id) {
+      _id
       restaurantName
       restaurantAddress
       image
       eventDate
-      eventTime
       description
       attendeeLimit
-      state
       userId
     }
   }
 `;
 
 export const ADD_FAVOURITE = gql`
-  mutation addFavourite($eventId: eventId) {
-    addFavourite(eventId: $eventId) {
-      eventId
+  mutation favouriteEvent($_id: ID!) {
+    favouriteEvent(_id: $_id) {
+      _id
       restaurantName
       restaurantAddress
       image
       eventDate
-      eventTime
       description
       attendeeLimit
-      state
+      userId
+    }
+  }
+`;
+
+export const REMOVE_FAVOURITE = gql`
+  mutation removeFavourite($_id: ID!) {
+    removeFavourite(_id: $_id) {
+      _id
+      restaurantName
+      restaurantAddress
+      image
+      eventDate
+      description
+      attendeeLimit
+      userId
+    }
+  }
+`;
+
+export const ATTEND_EVENT = gql`
+  mutation attendEvent($_id: ID!) {
+    attendEvent(_id: $_id) {
+      _id
+      restaurantName
+      restaurantAddress
+      image
+      eventDate
+      description
+      attendeeLimit
+      userId
+    }
+  }
+`;
+
+export const UNATTEND_EVENT = gql`
+  mutation unattendEvent($_id: ID!) {
+    unattendEvent(_id: $_id) {
+      _id
+      restaurantName
+      restaurantAddress
+      image
+      eventDate
+      description
+      attendeeLimit
       userId
     }
   }

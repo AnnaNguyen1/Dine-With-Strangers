@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Menu as Smenu } from "semantic-ui-react";
 import Auth from "../utils/auth";
-import EventList from "./EventList";
+import { Link } from "react-router-dom";
 
 export function Menu() {
   const [state, setState] = useState({ activeItem: "My Events" });
@@ -17,11 +17,15 @@ export function Menu() {
           name="My Events"
           active={activeItem === "My Events"}
           onClick={handleItemClick}
+          as={Link}
+          to="/profile"
         />
         <Smenu.Item
           name="Find Events"
           active={activeItem === "Find Events"}
-          onClick={<EventList />}
+          onClick={handleItemClick}
+          as={Link}
+          to="/events"
         />
         <Smenu.Item
           name="Log Out"

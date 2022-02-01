@@ -9,27 +9,23 @@ export const QUERY_ME = gql`
       email
       eventCount
       favourites {
-        eventId
+        _id
         restaurantName
         restaurantAddress
         image
         eventDate
-        eventTime
         description
         attendeeLimit
-        state
         userId
       }
       attending {
-        eventId
+        _id
         restaurantName
         restaurantAddress
         image
         eventDate
-        eventTime
         description
         attendeeLimit
-        state
         userId
       }
     }
@@ -39,32 +35,28 @@ export const QUERY_ME = gql`
 export const QUERY_EVENTS = gql`
   query allEvents {
     events {
-      eventId
+      _id
       restaurantName
       restaurantAddress
       image
       eventDate
-      eventTime
       description
       attendeeLimit
-      state
       userId
     }
   }
 `;
 
 export const QUERY_SINGLE_EVENT = gql`
-  query singleEvent($eventId: ID!) {
-    singleEvent(eventId: $eventId) {
-      eventId
+  query singleEvent($_id: ID!) {
+    singleEvent(_id: $_id) {
+      _id
       restaurantName
       restaurantAddress
       image
       eventDate
-      eventTime
       description
       attendeeLimit
-      state
       userId
     }
   }

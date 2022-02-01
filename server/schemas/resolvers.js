@@ -88,7 +88,6 @@ const resolvers = {
       throw new AuthenticationError("You need to be logged in!");
     },
     favouriteEvent: async (root, { _id }, context) => {
-      console.log(_id);
       const newEvent = { _id };
       if (context.user) {
         const updatedUser = await User.findOneAndUpdate(
@@ -98,16 +97,17 @@ const resolvers = {
           },
           { new: true }
         );
-        console.log(updatedUser);
+
         return updatedUser;
       }
       throw new AuthenticationError("You need to be logged in!");
     },
     removeFavourite: async (root, { _id }, context) => {
+      const existingEvent = { _id };
       if (context.user) {
         const updatedUser = await User.findOneAndUpdate(
           { _id: context.user._id },
-          { $pull: { favourites: { _id } } },
+          { $pull: { favourites: { existingEvent } } },
           { new: true }
         );
         return updatedUser;
@@ -115,10 +115,11 @@ const resolvers = {
       throw new AuthenticationError("You need to be logged in!");
     },
     attendEvent: async (root, { _id }, context) => {
+      const newEvent = { _id };
       if (context.user) {
         const updatedUser = await User.findOneAndUpdate(
           { _id: context.user._id },
-          { $push: { attending: _id } },
+          { $push: { attending: newEvent } },
           { new: true }
         );
         return updatedUser;
@@ -126,10 +127,11 @@ const resolvers = {
       throw new AuthenticationError("You need to be logged in!");
     },
     unattendEvent: async (root, { _id }, context) => {
+      const existingEvent = { _id };
       if (context.user) {
         const updatedUser = await User.findOneAndUpdate(
           { _id: context.user._id },
-          { $pull: { attending: { _id } } },
+          { $pull: { attending: { existingEvent } } },
           { new: true }
         );
         return updatedUser;

@@ -27,9 +27,10 @@ export default function EventList() {
         {events.map((event) => {
           return (
             <EventCard
-              key={event._id}
+              id={event._id}
               image={event.image}
               restaurantName={event.restaurantName}
+              restaurantAddress={event.restaurantAddress}
               address={event.address}
               dateTime={event.eventDate}
               description={event.description}

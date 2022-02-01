@@ -1,25 +1,27 @@
 import React from "react";
 import { Card as Scard, Image, Icon, Button } from "semantic-ui-react";
+import { QUERY_ME } from "../utils/queries";
+import { useQuery } from "@apollo/client";
+// import { QUERY_EVENTS } from "../utils/queries";
 
 export function EventCard({
-  key,
+  id,
   image,
   restaurantName,
-  address,
+  restaurantAddress,
   dateTime,
   description,
 }) {
-  // function to attend and function to favourite
-
-  // change the attending label if the limit of attendees is maxed and prevent from clicking
-
+  const { data } = useQuery(QUERY_ME);
+  const user = data?.me || [];
+  console.log(user);
   return (
-    <Scard key={key} id={key} className="event-card">
+    <Scard key={id} className="event-card">
       <Image src={image} wrapped ui={false} />
       <Scard.Content>
         <Scard.Header>{restaurantName}</Scard.Header>
         <Scard.Meta>
-          <span className="address">{address}</span>
+          <span className="address">{restaurantAddress}</span>
           <span className="date">{dateTime}</span>
         </Scard.Meta>
         <Scard.Description>{description}</Scard.Description>
@@ -32,8 +34,10 @@ export function EventCard({
             <Icon name="check" />
           </Button.Content>
         </Button>
+
         <Button animated size="small">
           <Button.Content visible>Favourite</Button.Content>
+
           <Button.Content hidden>
             <Icon color="orange" name="favorite" />
           </Button.Content>

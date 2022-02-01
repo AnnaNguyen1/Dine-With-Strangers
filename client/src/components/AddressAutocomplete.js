@@ -12,6 +12,7 @@ export default function AddressAutocomplete({ setAddress2 }) {
     console.log("Google Maps API returned error with status: ", status);
     clearSuggestions();
   };
+
   setAddress2(address);
 
   return (

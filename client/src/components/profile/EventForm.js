@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Form as Sform } from "semantic-ui-react";
-import AddressAutocomplete from "./AddressAutocomplete";
-import { ADD_EVENT } from "../utils/mutations";
+import AddressAutocomplete from "../AddressAutocomplete";
+import { ADD_EVENT } from "../../utils/mutations";
 import { useMutation } from "@apollo/client";
 
 export function EventForm({ _id }) {
@@ -48,6 +48,7 @@ export function EventForm({ _id }) {
       eventDate: "",
       description: "",
       attendeeLimit: 0,
+      setAddress2: "",
     });
   };
 

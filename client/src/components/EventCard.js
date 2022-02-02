@@ -1,7 +1,7 @@
 import React from "react";
 import { Card as Scard, Image, Icon, Button } from "semantic-ui-react";
-import { QUERY_ME } from "../utils/queries";
-import { useQuery } from "@apollo/client";
+// import { QUERY_ME } from "../utils/queries";
+// import { useQuery } from "@apollo/client";
 // import { QUERY_EVENTS } from "../utils/queries";
 
 export function EventCard({
@@ -12,9 +12,6 @@ export function EventCard({
   dateTime,
   description,
 }) {
-  const { data } = useQuery(QUERY_ME);
-  const user = data?.me || [];
-  console.log(user);
   return (
     <Scard key={id} className="event-card">
       <Image src={image} wrapped ui={false} />

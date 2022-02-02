@@ -6,9 +6,19 @@ export default function MyEvents({ userData }) {
   const { data } = useQuery(QUERY_EVENTS);
   const events = data?.events || [];
 
+  const id = userData._id;
+  console.log(id);
+
+  console.log(events[0]);
+
+  // const hasEvents = events.length  ? true : false;
+  // console.log(hasEvents);
+
   return (
     <>
-      <h3></h3>
+      {/**Combatting rendering issue */}
+      {userData._id === undefined ? <h3>Loading....</h3> : <h3>working!</h3>}
+      {events[0] === undefined ? <h3>Loading....</h3> : <h3>working!</h3>}
     </>
   );
 }

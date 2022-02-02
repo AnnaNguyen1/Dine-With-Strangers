@@ -4,19 +4,14 @@ import { QUERY_EVENTS } from "../../utils/queries";
 import { EventCard } from "../EventCard";
 import { Card } from "semantic-ui-react";
 
+
 export default function MyEvents({ userData }) {
   const { data } = useQuery(QUERY_EVENTS);
   const events = data?.events || [];
 
-  const id = userData._id;
-  console.log(id);
+  const userId = userData._id;
 
-  console.log(events[0]);
-
-  // const hasEvents = events.length  ? true : false;
-  // console.log(hasEvents);
-
-  const filteredEvents = events.filter((e) => e.userId === id);
+  const filteredEvents = getEventsWithUserId(events, userId);
   console.log("filtered", filteredEvents);
 
   return (
@@ -30,6 +25,7 @@ export default function MyEvents({ userData }) {
           {filteredEvents.map((event) => {
             return (
               <EventCard
+                key={event._id}
                 id={event._id}
                 image={event.image}
                 restaurantName={event.restaurantName}
@@ -45,3 +41,11 @@ export default function MyEvents({ userData }) {
     </>
   );
 }
+
+function getEventsWithUserId(events, userId) {
+  if (!userId) {
+    return [];
+  }
+  return events.filter((e) => e.userId === userId);
+}
+

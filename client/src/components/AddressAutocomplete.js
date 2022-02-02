@@ -20,7 +20,7 @@ export default function AddressAutocomplete({ setAddress2 }) {
       <PlacesAutocomplete
         value={address}
         onChange={setAddress}
-        onSelect={handleSelect}
+        onClick={handleSelect}
         searchOptions={searchOptions}
         onError={onError}
       >

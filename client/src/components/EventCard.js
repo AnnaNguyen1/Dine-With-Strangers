@@ -1,8 +1,5 @@
 import React from "react";
 import { Card as Scard, Image, Icon, Button } from "semantic-ui-react";
-// import { QUERY_ME } from "../utils/queries";
-// import { useQuery } from "@apollo/client";
-// import { QUERY_EVENTS } from "../utils/queries";
 
 export function EventCard({
   id,
@@ -11,6 +8,7 @@ export function EventCard({
   restaurantAddress,
   dateTime,
   description,
+  btnCards,
 }) {
   return (
     <Scard key={id} className="event-card">
@@ -23,22 +21,8 @@ export function EventCard({
         </Scard.Meta>
         <Scard.Description>{description}</Scard.Description>
       </Scard.Content>
-      <Scard.Content extra>
-        <Button animated size="small">
-          <Button.Content visible>Click to attend!</Button.Content>
-          <Button.Content hidden>
-            Attending!
-            <Icon name="check" />
-          </Button.Content>
-        </Button>
-
-        <Button animated size="small">
-          <Button.Content visible>Favourite</Button.Content>
-
-          <Button.Content hidden>
-            <Icon color="orange" name="favorite" />
-          </Button.Content>
-        </Button>
+      <Scard.Content extra center>
+        {btnCards}
       </Scard.Content>
     </Scard>
   );

@@ -47,7 +47,8 @@ h1 {
   padding-top: 2em;
 }
 
-.logo {
+.logo,
+.btns {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-evenly;

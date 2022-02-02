@@ -17,7 +17,14 @@ export default function MyEvents({ userData }) {
   return (
     <>
       {/**Combatting rendering issue */}
-      {userData._id === undefined ? <h3>Loading....</h3> : <h3>working!</h3>}
+      {userData._id === undefined ? (
+        <h3>Loading....</h3>
+      ) : (
+        <h3>
+          Welcome back {userData.firstName}! Here are the events you are
+          hosting:
+        </h3>
+      )}
       {events[0] === undefined ? (
         <h3>Loading....</h3>
       ) : (

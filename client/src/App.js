@@ -11,7 +11,6 @@ import Home from "./pages/Home";
 import Profile from "./pages/Profile";
 import EventList from "./components/EventList";
 import Navbar from "./components/Navbar";
-import AttendEvent from "./components/profile/AttendEvent";
 import "./App.css";
 
 const httpLink = createHttpLink({
@@ -43,7 +42,6 @@ function App() {
             <Route exact path="/" component={Home} />
             <Route exact path="/profile" component={Profile} />
             <Route exact path="/events" component={EventList} />
-            <Route exact path="/attending" component={AttendEvent} />
             <Route render={() => <h1 className="display-2">Wrong page!</h1>} />
           </Switch>
         </>

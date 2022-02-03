@@ -53,39 +53,43 @@ export default function Favourites({ userData }) {
             {userFavourites.map((event) => {
               console.log(event);
               return (
-                <EventCard
-                  id={event._id}
-                  image={event.image}
-                  restaurantName={event.restaurantName}
-                  restaurantAddress={event.restaurantAddress}
-                  address={event.address}
-                  dateTime={event.eventDate}
-                  description={event.description}
-                  btnCards={
-                    <div className="btn-align">
-                      <div>
-                        <PopUp
-                          trigger={
-                            <div>
-                              <Btn
-                                btnInfo={<Icon name="heart" color="red" />}
-                                onClick={() => handleRemoveFavourite(event._id)}
-                              />
-                            </div>
-                          }
-                          content={"Remove Favourite"}
-                        />
-                      </div>
+                <div key={event._id}>
+                  <EventCard
+                    id={event._id}
+                    image={event.image}
+                    restaurantName={event.restaurantName}
+                    restaurantAddress={event.restaurantAddress}
+                    address={event.address}
+                    dateTime={event.eventDate}
+                    description={event.description}
+                    btnCards={
+                      <div className="btn-align">
+                        <div>
+                          <PopUp
+                            trigger={
+                              <div>
+                                <Btn
+                                  btnInfo={<Icon name="heart" color="red" />}
+                                  onClick={() =>
+                                    handleRemoveFavourite(event._id)
+                                  }
+                                />
+                              </div>
+                            }
+                            content={"Remove Favourite"}
+                          />
+                        </div>
 
-                      <div>
-                        <PopUp
-                          trigger={<Btn btnInfo={"Attend!"} />}
-                          content="Attend"
-                        />
+                        <div>
+                          <PopUp
+                            trigger={<Btn btnInfo={"Attend!"} />}
+                            content="Attend"
+                          />
+                        </div>
                       </div>
-                    </div>
-                  }
-                />
+                    }
+                  />
+                </div>
               );
             })}
           </Card.Group>

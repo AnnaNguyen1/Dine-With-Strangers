@@ -3,9 +3,10 @@ import { useQuery, useMutation } from "@apollo/client";
 import { QUERY_EVENTS } from "../../utils/queries";
 import { DELETE_EVENT } from "../../utils/mutations";
 import { EventCard } from "../EventCard";
-import { Card, Icon } from "semantic-ui-react";
+import { Card } from "semantic-ui-react";
 import { Btn } from "../Btn";
 import Auth from "../../utils/auth";
+import EditEvent from "../EditEvent";
 
 export default function MyEvents({ userData }) {
   const { data } = useQuery(QUERY_EVENTS);
@@ -62,8 +63,8 @@ export default function MyEvents({ userData }) {
                   dateTime={event.eventDate}
                   description={event.description}
                   btnCards={
-                    <div>
-                      <Btn btnInfo={<Icon name="pencil" />} />
+                    <div className="btn-align">
+                      <EditEvent eventData={event} />
                       <Btn
                         btnInfo="Delete Event"
                         btnColor="red"

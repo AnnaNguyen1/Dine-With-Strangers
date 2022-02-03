@@ -2,39 +2,50 @@ import React, { useState } from "react";
 import { Form as Sform, Message } from "semantic-ui-react";
 import AddressAutocomplete from "../AddressAutocomplete";
 import { ADD_EVENT } from "../../utils/mutations";
+import { QUERY_EVENTS } from "../../utils/queries";
+
 import { useMutation } from "@apollo/client";
 
 export function EventForm({ _id }) {
-  const [events, setEvents] = useState({
+  const [event, setEvent] = useState({
     restaurantName: "",
     restaurantAddress: "",
     image: "",
     eventDate: "",
     description: "",
-    attendeeLimit: 0,
+    attendeeLimit: "",
   });
   const [address, setAddress] = useState();
   const [submitted, setSubmitted] = useState(false);
-  const [addEvent] = useMutation(ADD_EVENT);
+  const [addEvent] = useMutation(ADD_EVENT, {
+    update(cache, { addEvent }) {
+      const { events } = cache.readQuery({ query: QUERY_EVENTS });
+
+      cache.writeQuery({
+        query: QUERY_EVENTS,
+        data: { events: [...events, addEvent] },
+      });
+    },
+  });
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
 
-    setEvents({ ...events, [name]: value });
+    setEvent({ ...event, [name]: value });
   };
 
   const setAddress2 = (add) => {
-    //setEvents({ ...events, restaurantAddress: address });
+    //setevent({ ...events, restaurantAddress: address });
     setAddress(add);
   };
 
-  const handleFormSubmit = (event) => {
-    event.preventDefault();
+  const handleFormSubmit = async (e) => {
+    e.preventDefault();
 
     try {
-      const { data } = addEvent({
+      const { data } = await addEvent({
         variables: {
-          eventData: { ...events, _id, restaurantAddress: address },
+          eventData: { ...event, _id, restaurantAddress: address },
         },
       });
       setSubmitted(true);
@@ -42,13 +53,13 @@ export function EventForm({ _id }) {
     } catch (err) {
       console.log(err);
     }
-    setEvents({
+    setEvent({
       restaurantName: "",
       restaurantAddress: "",
       image: "",
       eventDate: "",
       description: "",
-      attendeeLimit: 0,
+      attendeeLimit: "",
       setAddress2: "",
     });
   };
@@ -65,14 +76,14 @@ export function EventForm({ _id }) {
           placeholder="Hungry Mamas"
           name="restaurantName"
           onChange={handleInputChange}
-          value={events.restaurantName}
+          value={event.restaurantName}
         />
         <Sform.Field>
           <label>Address</label>
           <AddressAutocomplete
             name="restaurantAddress"
             // onChange={handleInputChange}
-            // value={events.restaurantAddress}
+            // value={event.restaurantAddress}
             setAddress2={setAddress2}
           />
         </Sform.Field>
@@ -84,7 +95,7 @@ export function EventForm({ _id }) {
               className="date-time"
               name="eventDate"
               onChange={handleInputChange}
-              value={events.eventDate}
+              value={event.eventDate}
             />
           </Sform.Field>
           <Sform.Input
@@ -98,7 +109,7 @@ export function EventForm({ _id }) {
             placeholder="2"
             name="attendeeLimit"
             onChange={handleInputChange}
-            value={events.attendeeLimit}
+            value={event.attendeeLimit}
           />
         </Sform.Group>
 
@@ -107,7 +118,7 @@ export function EventForm({ _id }) {
           placeholder="Tell everyone why you would like to go here...."
           name="description"
           onChange={handleInputChange}
-          value={events.description}
+          value={event.description}
         />
         <Sform.Field>
           <label>Image of Restaurant</label>
@@ -116,12 +127,12 @@ export function EventForm({ _id }) {
             accept="image/*"
             name="image"
             onChange={handleInputChange}
-            value={events.image}
+            value={event.image}
           />
         </Sform.Field>
 
         <Sform.Button
-          disabled={!(events.restaurantName && setAddress2 && events.eventDate)}
+          disabled={!(event.restaurantName && setAddress2 && event.eventDate)}
         >
           Submit
         </Sform.Button>

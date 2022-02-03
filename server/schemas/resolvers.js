@@ -102,14 +102,14 @@ const resolvers = {
       }
       throw new AuthenticationError("You need to be logged in!");
     },
-    removeFavourite: async (root, { _id }, context) => {
-      const existingEvent = { _id };
+    removeFavourite: async (root, { _id: eventId }, context) => {
       if (context.user) {
         const updatedUser = await User.findOneAndUpdate(
           { _id: context.user._id },
-          { $pull: { favourites: { existingEvent } } },
+          { $pull: { favourites: { _id: eventId } } },
           { new: true }
         );
+        console.log(updatedUser);
         return updatedUser;
       }
       throw new AuthenticationError("You need to be logged in!");
@@ -126,12 +126,11 @@ const resolvers = {
       }
       throw new AuthenticationError("You need to be logged in!");
     },
-    unattendEvent: async (root, { _id }, context) => {
-      const existingEvent = { _id };
+    unattendEvent: async (root, { _id: eventId }, context) => {
       if (context.user) {
         const updatedUser = await User.findOneAndUpdate(
           { _id: context.user._id },
-          { $pull: { attending: { existingEvent } } },
+          { $pull: { attending: { _id: eventId } } },
           { new: true }
         );
         return updatedUser;

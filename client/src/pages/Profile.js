@@ -15,8 +15,11 @@ export default function Profile() {
   return (
     <div className="profile">
       <h2 className="heading-profile">
-        Hi {me.firstName}🍷!
-        <span className="lobster"> Ready to meet new people? </span>
+        Hi {me.firstName}!
+        <span className="lobster">
+          {" "}
+          Ready to 🍷 and dine with people you have never met before?{" "}
+        </span>
       </h2>
 
       <div className="tabs">

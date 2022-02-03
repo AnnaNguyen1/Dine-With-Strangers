@@ -1,21 +1,16 @@
-import React, { useEffect, useState } from "react";
-import { Card, Image, Button, Modal } from "semantic-ui-react";
-import { useQuery, useMutation } from "@apollo/client";
+import React from "react";
+import { Card, Image } from "semantic-ui-react";
+import { useQuery } from "@apollo/client";
 import { QUERY_EVENTS } from "../utils/queries";
 import { EventCard } from "./EventCard";
-
-import { ATTEND_EVENT } from "../utils/mutations";
 import Auth from "../utils/auth";
 import diningImg from "../images/dining.jpg";
-// import { Link } from "react-router-dom";
-// import LoginForm from "./LoginForm";
+
 import { Btn } from "./Btn";
 
 export default function EventList({ userData }) {
   const { data } = useQuery(QUERY_EVENTS);
   const events = data?.events || [];
-
-  const [attendEvent] = useMutation(ATTEND_EVENT);
 
   return (
     <div>
@@ -56,9 +51,7 @@ export default function EventList({ userData }) {
                         <Btn btnInfo="Attending" />
                         <Btn btnInfo="Favourite" />
                       </div>
-                    ) : (
-                      ""
-                    )
+                    ) : null
                   }
                 />
               </div>
@@ -69,3 +62,7 @@ export default function EventList({ userData }) {
     </div>
   );
 }
+
+// onClick={() => {
+//   addToFavouritesMutation({variables: event})
+// }}

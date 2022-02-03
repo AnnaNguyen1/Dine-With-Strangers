@@ -88,6 +88,10 @@ div.ui.card.event-card {
   margin: 4em;
 }
 
+form.ui.small.form {
+  font-style: normal;
+}
+
 .heading-profile {
   position: relative;
   text-align: center;

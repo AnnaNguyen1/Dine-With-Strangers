@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Button, Form } from "semantic-ui-react";
+import { Button, Form, Message } from "semantic-ui-react";
 import { useMutation } from "@apollo/react-hooks";
 import Auth from "../utils/auth";
 import { ADD_USER } from "../utils/mutations";
@@ -12,7 +12,10 @@ const SignupForm = () => {
     password: "",
   });
 
+  const [error, setError] = useState(false);
+
   const handleInputChange = (event) => {
+    setError(false);
     const { name, value } = event.target;
     setUserFormData({ ...userFormData, [name]: value });
   };
@@ -27,19 +30,33 @@ const SignupForm = () => {
       Auth.login(data.addUser.token);
     } catch (err) {
       console.error(err);
+      setError(true);
     }
 
-    setUserFormData({
-      firstName: "",
-      lastName: "",
-      email: "",
-      password: "",
-    });
+    if (error !== true) {
+      setUserFormData({
+        firstName: "",
+        lastName: "",
+        email: "",
+        password: "",
+      });
+    }
   };
 
   return (
     <Form size="small" onSubmit={handleFormSubmit}>
       <h2>Sign Up</h2>
+      <p>Can't wait for you to join in on the fun!</p>
+      {error === true ? (
+        <Message negative>
+          <Message.Header>Error</Message.Header>
+          <p>
+            Invalid email address and/or password needs to exceed 5 characters!
+          </p>
+        </Message>
+      ) : (
+        ""
+      )}
       <Form.Input
         label="First Name"
         type="text"

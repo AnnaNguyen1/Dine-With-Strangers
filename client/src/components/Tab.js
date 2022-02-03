@@ -10,7 +10,7 @@ export function Tab({ favourites, attending, events, addevent }) {
     { menuItem: "Attending", render: () => <Stab.Pane>{attending}</Stab.Pane> },
 
     {
-      menuItem: "My hosting events",
+      menuItem: "Events I am hosting",
       render: () => <Stab.Pane>{events}</Stab.Pane>,
     },
     {

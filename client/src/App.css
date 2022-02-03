@@ -1,14 +1,19 @@
-@import url("https://fonts.googleapis.com/css2?family=Abril+Fatface&family=Poppins:wght@200;300&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Abril+Fatface&family=Lobster&family=Poppins:wght@200;300&display=swap");
 
 :root {
   --poppins: Poppins, sans-serif;
   --fatface: "Abril Fatface", cursive;
+  --lobster: "Lobster", cursive;
   --font-mono: "SF Mono", "Fira Code", "Fira Mono", "Roboto Mono", monospace;
   --font-sans: "Calibre", "Inter", "San Francisco", "SF Pro Text", -apple-system,
     system-ui, sans-serif;
   --black: black;
   --grey: grey;
   --white: white;
+}
+
+.lobster {
+  font-family: var(--lobster);
 }
 
 .navbar {
@@ -80,4 +85,11 @@ div.ui.card.event-card {
   position: relative;
   text-align: center;
   margin: 4em;
+}
+
+.heading-profile {
+  position: relative;
+  text-align: center;
+  margin: 2em;
+  padding-top: 2em;
 }

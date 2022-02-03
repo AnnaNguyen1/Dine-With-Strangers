@@ -1,9 +1,11 @@
 import React from "react";
-import { useQuery } from "@apollo/client";
+import { useQuery, useMutation } from "@apollo/client";
 import { QUERY_EVENTS } from "../../utils/queries";
+import { DELETE_EVENT } from "../../utils/mutations";
 import { EventCard } from "../EventCard";
-import { Card } from "semantic-ui-react";
-
+import { Card, Icon } from "semantic-ui-react";
+import { Btn } from "../Btn";
+import Auth from "../../utils/auth";
 
 export default function MyEvents({ userData }) {
   const { data } = useQuery(QUERY_EVENTS);
@@ -11,8 +13,30 @@ export default function MyEvents({ userData }) {
 
   const userId = userData._id;
 
+  // const [filteredEvents, setFilteredEvents] = useState("");
+
   const filteredEvents = getEventsWithUserId(events, userId);
   console.log("filtered", filteredEvents);
+
+  const [deleteEvent] = useMutation(DELETE_EVENT);
+
+  const handleDeleteEvent = async (eventId) => {
+    const token = Auth.loggedIn() ? Auth.getToken() : null;
+    if (!token) {
+      return false;
+    }
+    try {
+      const response = await deleteEvent({ variables: { _id: eventId } });
+      console.log("response", response);
+      // setFilteredEvents((prev) => prev.map((e) => e.userId === userId));
+
+      if (!response.ok) {
+        throw new Error("something went wrong!");
+      }
+    } catch (err) {
+      console.error(err);
+    }
+  };
 
   return (
     <>
@@ -20,10 +44,7 @@ export default function MyEvents({ userData }) {
       {userData._id === undefined ? (
         <h3>Loading....</h3>
       ) : (
-        <h3>
-          Welcome back {userData.firstName}! Here are the events you are
-          hosting:
-        </h3>
+        <h3>Here are the events you are hosting:</h3>
       )}
       {events[0] === undefined ? (
         <h3>Loading....</h3>
@@ -31,16 +52,27 @@ export default function MyEvents({ userData }) {
         <Card.Group centered>
           {filteredEvents.map((event) => {
             return (
-              <EventCard
-                key={event._id}
-                id={event._id}
-                image={event.image}
-                restaurantName={event.restaurantName}
-                restaurantAddress={event.restaurantAddress}
-                address={event.address}
-                dateTime={event.eventDate}
-                description={event.description}
-              />
+              <div key={event._id}>
+                <EventCard
+                  id={event._id}
+                  image={event.image}
+                  restaurantName={event.restaurantName}
+                  restaurantAddress={event.restaurantAddress}
+                  address={event.address}
+                  dateTime={event.eventDate}
+                  description={event.description}
+                  btnCards={
+                    <div>
+                      <Btn btnInfo={<Icon name="pencil" />} />
+                      <Btn
+                        btnInfo="Delete Event"
+                        btnColor="red"
+                        onClick={() => handleDeleteEvent(event._id)}
+                      />
+                    </div>
+                  }
+                />
+              </div>
             );
           })}
         </Card.Group>
@@ -55,4 +87,3 @@ function getEventsWithUserId(events, userId) {
   }
   return events.filter((e) => e.userId === userId);
 }
-

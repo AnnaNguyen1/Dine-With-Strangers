@@ -1,20 +1,20 @@
 import React from "react";
-// import { EventCard } from "../EventCard";
+import { EventCard } from "../EventCard";
 import { useQuery } from "@apollo/client";
 import { QUERY_EVENTS } from "../../utils/queries";
-// import { Card } from "semantic-ui-react";
+import { Card } from "semantic-ui-react";
 
-export default function AttendEvent() {
+export default function AttendEvent({ userData }) {
   const { data } = useQuery(QUERY_EVENTS);
   const events = data?.events || [];
   console.log(events);
 
-  // const userAttending = userData.attending;
-  // console.log(userAttending);
+  const userAttending = userData.attending;
+  console.log(userAttending);
 
   return (
     <>
-      {/* {userAttending === undefined ? (
+      {userAttending === undefined ? (
         <h3>No events currently attending</h3>
       ) : (
         <div>
@@ -25,7 +25,7 @@ export default function AttendEvent() {
                     ? "1 event"
                     : `${userAttending.length} events`
                 }`
-              : "Start favouriting events now!"}
+              : "No events RSVP'd"}
           </h3>
           <Card.Group centered>
             {userAttending.map((event) => {
@@ -43,7 +43,7 @@ export default function AttendEvent() {
             })}
           </Card.Group>
         </div>
-      )} */}
+      )}
     </>
   );
 }

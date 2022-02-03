@@ -14,7 +14,7 @@ export function Menu() {
     <Smenu secondary>
       <Smenu.Menu position="right">
         <Smenu.Item
-          name="My Events"
+          name="Home"
           active={activeItem === "My Events"}
           onClick={handleItemClick}
           as={Link}

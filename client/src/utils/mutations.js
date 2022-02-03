@@ -67,16 +67,22 @@ export const DELETE_EVENT = gql`
 `;
 
 export const ADD_FAVOURITE = gql`
-  mutation favouriteEvent($_id: ID!) {
-    favouriteEvent(_id: $_id) {
+  mutation favouriteEvent($eventData: InputEvent) {
+    favouriteEvent(eventData: $eventData) {
       _id
-      restaurantName
-      restaurantAddress
-      image
-      eventDate
-      description
-      attendeeLimit
-      userId
+      firstName
+      lastName
+      email
+      favourites {
+        _id
+        restaurantName
+        restaurantAddress
+        image
+        eventDate
+        description
+        attendeeLimit
+        userId
+      }
     }
   }
 `;
@@ -85,28 +91,40 @@ export const REMOVE_FAVOURITE = gql`
   mutation removeFavourite($_id: ID!) {
     removeFavourite(_id: $_id) {
       _id
-      restaurantName
-      restaurantAddress
-      image
-      eventDate
-      description
-      attendeeLimit
-      userId
+      firstName
+      lastName
+      email
+      favourites {
+        _id
+        restaurantName
+        restaurantAddress
+        image
+        eventDate
+        description
+        attendeeLimit
+        userId
+      }
     }
   }
 `;
 
 export const ATTEND_EVENT = gql`
-  mutation attendEvent($_id: ID!) {
-    attendEvent(_id: $_id) {
+  mutation attendEvent($eventData: InputEvent) {
+    attendEvent(eventData: $eventData) {
       _id
-      restaurantName
-      restaurantAddress
-      image
-      eventDate
-      description
-      attendeeLimit
-      userId
+      firstName
+      lastName
+      email
+      attending {
+        _id
+        restaurantName
+        restaurantAddress
+        image
+        eventDate
+        description
+        attendeeLimit
+        userId
+      }
     }
   }
 `;
@@ -115,13 +133,19 @@ export const UNATTEND_EVENT = gql`
   mutation unattendEvent($_id: ID!) {
     unattendEvent(_id: $_id) {
       _id
-      restaurantName
-      restaurantAddress
-      image
-      eventDate
-      description
-      attendeeLimit
-      userId
+      firstName
+      lastName
+      email
+      attending {
+        _id
+        restaurantName
+        restaurantAddress
+        image
+        eventDate
+        description
+        attendeeLimit
+        userId
+      }
     }
   }
 `;

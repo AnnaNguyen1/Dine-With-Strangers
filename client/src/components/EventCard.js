@@ -1,8 +1,7 @@
 import React from "react";
-import { Card as Scard, Image, Icon, Button } from "semantic-ui-react";
+import { Card as Scard, Image } from "semantic-ui-react";
 
 export function EventCard({
-  id,
   image,
   restaurantName,
   restaurantAddress,
@@ -11,7 +10,7 @@ export function EventCard({
   btnCards,
 }) {
   return (
-    <Scard key={id} className="event-card">
+    <Scard className="event-card">
       <Image src={image} wrapped ui={false} />
       <Scard.Content>
         <Scard.Header>{restaurantName}</Scard.Header>
@@ -21,9 +20,7 @@ export function EventCard({
         </Scard.Meta>
         <Scard.Description>{description}</Scard.Description>
       </Scard.Content>
-      <Scard.Content extra center>
-        {btnCards}
-      </Scard.Content>
+      <Scard.Content extra>{btnCards}</Scard.Content>
     </Scard>
   );
 }

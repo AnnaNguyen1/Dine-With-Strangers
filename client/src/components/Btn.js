@@ -1,10 +1,16 @@
 import React from "react";
 import { Button as Sbtn } from "semantic-ui-react";
 
-export function Btn({ btnContent }) {
+export function Btn({ btnInfo, btnColor, value, onClick }) {
   return (
-    <Sbtn size="small">
-      <Sbtn.Content>{btnContent}</Sbtn.Content>
+    <Sbtn
+      size="small"
+      color={btnColor}
+      className="btns"
+      value={value}
+      onClick={onClick}
+    >
+      <Sbtn.Content>{btnInfo}</Sbtn.Content>
     </Sbtn>
   );
 }

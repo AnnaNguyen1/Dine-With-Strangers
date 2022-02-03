@@ -34,7 +34,7 @@ const NavBar = () => {
               />
               <Modal
                 trigger={
-                  <Button basic color="teal" content="Blue" id="signupBtn">
+                  <Button basic color="teal" id="signupBtn">
                     Sign Up
                   </Button>
                 }

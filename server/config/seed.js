@@ -59,6 +59,7 @@ db.once("open", async () => {
     email: "annatest1@test.com",
     password: "annatest1",
     favourites: [events[0]],
+    attending: [events[1], events[2]],
   });
   console.log(updatedUser);
 

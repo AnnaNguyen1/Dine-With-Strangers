@@ -23,7 +23,7 @@ export default function Favourites({ userData }) {
                     ? "1 event"
                     : `${userFavourites.length} events`
                 }`
-              : "Start favouriting events now!"}
+              : "Start favouriting events now! ⭐"}
           </h3>
           <Card.Group centered>
             {userFavourites.map((event) => {

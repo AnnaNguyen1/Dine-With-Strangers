@@ -63,9 +63,9 @@ const typeDefs = gql`
     ): Auth
     addEvent(eventData: InputEvent): Event
     deleteEvent(_id: ID!): Event
-    favouriteEvent(_id: ID!): User
+    favouriteEvent(eventData: InputEvent): User
     removeFavourite(_id: ID!): User
-    attendEvent(_id: ID!): User
+    attendEvent(eventData: InputEvent): User
     unattendEvent(_id: ID!): User
   }
 `;

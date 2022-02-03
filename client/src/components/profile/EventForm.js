@@ -51,7 +51,6 @@ export function EventForm({ _id }) {
       attendeeLimit: 0,
       setAddress2: "",
     });
-    // setSubmitted(false)
   };
 
   return (

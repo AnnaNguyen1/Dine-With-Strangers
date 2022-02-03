@@ -48,7 +48,7 @@ const SignupForm = () => {
       <h2>Sign Up</h2>
       <p>Can't wait for you to join in on the fun!</p>
       {error === true ? (
-        <Message negative>
+        <Message negative size="small">
           <Message.Header>Error</Message.Header>
           <p>
             Invalid email address and/or password needs to exceed 5 characters!

@@ -16,6 +16,10 @@
   font-family: var(--lobster);
 }
 
+textarea {
+  font-family: var(--poppins);
+}
+
 .navbar {
   padding: 2em;
   z-index: 9;

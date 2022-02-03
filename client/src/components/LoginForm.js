@@ -35,9 +35,9 @@ const LoginForm = () => {
     <Form size="small" onSubmit={handleFormSubmit}>
       <h2>Log In</h2>
       {error === true ? (
-        <Message negative>
+        <Message negative size="tiny">
           <Message.Header>Error</Message.Header>
-          <p>Incorrect credentials</p>
+          <p>Incorrect credentials!</p>
         </Message>
       ) : (
         ""

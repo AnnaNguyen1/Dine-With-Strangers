@@ -53,7 +53,8 @@ h1 {
 }
 
 .logo,
-.btns {
+.btns,
+.btn-align {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-evenly;

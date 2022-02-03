@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Form as Sform } from "semantic-ui-react";
+import { Form as Sform, Message } from "semantic-ui-react";
 import AddressAutocomplete from "../AddressAutocomplete";
 import { ADD_EVENT } from "../../utils/mutations";
 import { useMutation } from "@apollo/client";
@@ -14,7 +14,7 @@ export function EventForm({ _id }) {
     attendeeLimit: 0,
   });
   const [address, setAddress] = useState();
-
+  const [submitted, setSubmitted] = useState(false);
   const [addEvent] = useMutation(ADD_EVENT);
 
   const handleInputChange = (e) => {
@@ -37,6 +37,7 @@ export function EventForm({ _id }) {
           eventData: { ...events, _id, restaurantAddress: address },
         },
       });
+      setSubmitted(true);
       console.log(data);
     } catch (err) {
       console.log(err);
@@ -50,6 +51,7 @@ export function EventForm({ _id }) {
       attendeeLimit: 0,
       setAddress2: "",
     });
+    // setSubmitted(false)
   };
 
   return (
@@ -119,7 +121,21 @@ export function EventForm({ _id }) {
           />
         </Sform.Field>
 
-        <Sform.Button>Submit</Sform.Button>
+        <Sform.Button
+          disabled={!(events.restaurantName && setAddress2 && events.eventDate)}
+        >
+          Submit
+        </Sform.Button>
+        {submitted === true ? (
+          <Message positive>
+            <Message.Header>Event added!</Message.Header>
+            <p>
+              Yay! Time to <b>meat</b> new people!
+            </p>
+          </Message>
+        ) : (
+          ""
+        )}
       </Sform>
     </>
   );

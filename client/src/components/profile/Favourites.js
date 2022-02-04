@@ -12,10 +12,36 @@ export default function Favourites({ userData }) {
   const { data } = useQuery(QUERY_EVENTS);
   const events = data?.events || [];
 
-  const [removeFavourite] = useMutation(REMOVE_FAVOURITE);
-  const [attendEvent] = useMutation(ATTEND_EVENT);
+  const [removeFavourite] = useMutation(REMOVE_FAVOURITE, {
+    update(cache, { data: { removeFavourite } }) {
+      try {
+        const { events } = cache.readQuery({ query: QUERY_EVENTS });
 
-  // function to add eventData to userData.attending
+        cache.writeQuery({
+          query: QUERY_EVENTS,
+          data: {
+            events: events.filter((event) => event._id != removeFavourite._id),
+          },
+        });
+      } catch (e) {
+        console.error(e);
+      }
+    },
+  });
+  const [attendEvent] = useMutation(ATTEND_EVENT, {
+    update(cache, { data: { attendEvent } }) {
+      try {
+        const { events } = cache.readQuery({ query: QUERY_EVENTS });
+
+        cache.writeQuery({
+          query: QUERY_EVENTS,
+          data: { events: [...events, attendEvent] },
+        });
+      } catch (e) {
+        console.error(e);
+      }
+    },
+  });
 
   const handleRemoveFavourite = async (eventId) => {
     const token = Auth.loggedIn() ? Auth.getToken() : null;
@@ -27,6 +53,20 @@ export default function Favourites({ userData }) {
       if (!response.ok) {
         throw new Error("Something went wrong!");
       }
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
+  const handleAttendEvent = async (event) => {
+    const token = Auth.loggedIn() ? Auth.getToken() : null;
+    if (!token) {
+      return false;
+    }
+    try {
+      const response = await attendEvent({
+        variables: { eventData: { ...event } },
+      });
     } catch (err) {
       console.error(err);
     }
@@ -84,6 +124,7 @@ export default function Favourites({ userData }) {
                           <PopUp
                             trigger={<Btn btnInfo={"Attend!"} />}
                             content="Attend"
+                            onClick={() => handleAttendEvent(event)}
                           />
                         </div>
                       </div>

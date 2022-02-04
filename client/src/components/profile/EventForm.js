@@ -18,13 +18,17 @@ export function EventForm({ _id }) {
   const [address, setAddress] = useState();
   const [submitted, setSubmitted] = useState(false);
   const [addEvent] = useMutation(ADD_EVENT, {
-    update(cache, { addEvent }) {
-      const { events } = cache.readQuery({ query: QUERY_EVENTS });
+    update(cache, { data: { addEvent } }) {
+      try {
+        const { events } = cache.readQuery({ query: QUERY_EVENTS });
 
-      cache.writeQuery({
-        query: QUERY_EVENTS,
-        data: { events: [...events, addEvent] },
-      });
+        cache.writeQuery({
+          query: QUERY_EVENTS,
+          data: { events: [...events, addEvent] },
+        });
+      } catch (e) {
+        console.error(e);
+      }
     },
   });
 
@@ -49,7 +53,7 @@ export function EventForm({ _id }) {
         },
       });
       setSubmitted(true);
-      console.log(data);
+      console.log("data", data);
     } catch (err) {
       console.log(err);
     }

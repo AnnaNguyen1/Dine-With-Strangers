@@ -19,7 +19,22 @@ export default function MyEvents({ userData }) {
   const filteredEvents = getEventsWithUserId(events, userId);
   console.log("filtered", filteredEvents);
 
-  const [deleteEvent] = useMutation(DELETE_EVENT);
+  const [deleteEvent] = useMutation(DELETE_EVENT, {
+    update(cache, { data: { deleteEvent } }) {
+      try {
+        const { events } = cache.readQuery({ query: QUERY_EVENTS });
+
+        cache.writeQuery({
+          query: QUERY_EVENTS,
+          data: {
+            events: events.filter((event) => event._id != deleteEvent._id),
+          },
+        });
+      } catch (e) {
+        console.error(e);
+      }
+    },
+  });
 
   const handleDeleteEvent = async (eventId) => {
     const token = Auth.loggedIn() ? Auth.getToken() : null;
@@ -30,10 +45,6 @@ export default function MyEvents({ userData }) {
       const response = await deleteEvent({ variables: { _id: eventId } });
       console.log("response", response);
       // setFilteredEvents((prev) => prev.map((e) => e.userId === userId));
-
-      if (!response.ok) {
-        throw new Error("something went wrong!");
-      }
     } catch (err) {
       console.error(err);
     }
@@ -83,6 +94,7 @@ export default function MyEvents({ userData }) {
 }
 
 function getEventsWithUserId(events, userId) {
+  console.log(events);
   if (!userId) {
     return [];
   }

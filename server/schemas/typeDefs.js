@@ -32,6 +32,7 @@ const typeDefs = gql`
   }
 
   input InputEvent {
+    _id: ID
     restaurantName: String
     restaurantAddress: String
     image: String

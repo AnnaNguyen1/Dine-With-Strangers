@@ -88,12 +88,11 @@ const resolvers = {
       throw new AuthenticationError("You need to be logged in!");
     },
     favouriteEvent: async (root, { eventData }, context) => {
-      const newEvent = { eventData };
       if (context.user) {
         const updatedUser = await User.findOneAndUpdate(
           { _id: context.user._id },
           {
-            $push: { favourites: newEvent },
+            $push: { favourites: eventData },
           },
           { new: true }
         );

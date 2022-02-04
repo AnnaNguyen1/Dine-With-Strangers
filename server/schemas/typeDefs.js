@@ -63,6 +63,7 @@ const typeDefs = gql`
       password: String!
     ): Auth
     addEvent(eventData: InputEvent): Event
+    editEvent(eventData: InputEvent): Event
     deleteEvent(_id: ID!): Event
     favouriteEvent(eventData: InputEvent): User
     removeFavourite(_id: ID!): User

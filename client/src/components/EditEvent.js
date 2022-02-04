@@ -1,35 +1,54 @@
-import React from "react";
+import React, { useState } from "react";
 import { Icon, Form } from "semantic-ui-react";
 import { Modal } from "./Modal";
 import { Btn } from "./Btn";
-import AddressAutocomplete from "./AddressAutocomplete";
 
 export default function EditEvent({ eventData }) {
   console.log("eventData", eventData);
 
+  const [openModal, setOpenModal] = useState(false);
+  const [currentEventData, setCurrentEventData] = useState({
+    restaurantName: eventData.restaurantName,
+    restaurantAddress: eventData.restaurantAddress,
+    image: "",
+    eventDate: eventData.eventDate,
+    description: eventData.description,
+    attendeeLimit: eventData.attendeeLimit,
+  });
+
+  console.log("currentEventData", currentEventData);
+
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+
+    setCurrentEventData({ ...eventData, [name]: value });
+  };
+
   return (
     <Modal
       trigger={<Btn btnInfo={<Icon name="pencil" />} />}
+      header="Edit Event"
+      onOpen={() => setOpenModal(true)}
+      open={openModal}
       content={
         <>
-          <div>
-            <h3>Edit Event:</h3>
-          </div>
           <Form className="form">
             <Form.Input
               fluid
               label="Restaurant Name"
               placeholder="Hungry Mamas"
               name="restaurantName"
-              value={eventData.restaurantName}
+              value={currentEventData.restaurantName}
+              onChange={handleInputChange}
             />
-            <Form.Field>
-              <label>Address</label>
-              <AddressAutocomplete
-                name="restaurantAddress"
-                value={eventData.restaurantAddress}
-              />
-            </Form.Field>
+            <Form.Input
+              fluid
+              label="Restaurant Address"
+              placeholder="Hungry Mamas"
+              name="restaurantAddress"
+              value={currentEventData.restaurantAddress}
+              onChange={handleInputChange}
+            />
             <Form.Group widths="equal">
               <Form.Field>
                 <label>Date and Time of Event</label>
@@ -37,7 +56,8 @@ export default function EditEvent({ eventData }) {
                   type="datetime-local"
                   className="date-time"
                   name="eventDate"
-                  value={eventData.eventDate}
+                  value={currentEventData.eventDate}
+                  onChange={handleInputChange}
                 />
               </Form.Field>
               <Form.Input
@@ -51,7 +71,8 @@ export default function EditEvent({ eventData }) {
                 placeholder="2"
                 name="attendeeLimit"
                 //   onChange={handleInputChange}
-                value={eventData.attendeeLimit}
+                value={currentEventData.attendeeLimit}
+                onChange={handleInputChange}
               />
             </Form.Group>
 
@@ -60,7 +81,8 @@ export default function EditEvent({ eventData }) {
               placeholder="Tell everyone why you would like to go here...."
               name="description"
               // onChange={handleInputChange}
-              value={eventData.description}
+              value={currentEventData.description}
+              onChange={handleInputChange}
             />
             <Form.Field>
               <label>Image of Restaurant</label>
@@ -69,15 +91,23 @@ export default function EditEvent({ eventData }) {
                 accept="image/*"
                 name="image"
                 //   onChange={handleInputChange}
-                value={eventData.image}
+                value={currentEventData.image}
+                onChange={handleInputChange}
               />
             </Form.Field>
+            <div className="btn-bw">
+              <Btn
+                disabled={
+                  !(
+                    currentEventData.restaurantName &&
+                    currentEventData.eventDate
+                  )
+                }
+                btnInfo="Save Changes"
+              />
+              <Btn onClick={() => setOpenModal(false)} btnInfo="Cancel" />
+            </div>
 
-            <Form.Button
-              disabled={!(eventData.restaurantName && eventData.eventDate)}
-            >
-              Submit
-            </Form.Button>
             {/* {submitted === true ? (
               <Message positive>
                 <Message.Header>Event added!</Message.Header>

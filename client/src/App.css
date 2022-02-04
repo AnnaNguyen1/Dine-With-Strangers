@@ -66,10 +66,15 @@ h1 {
 
 .logo,
 .btns,
-.btn-align {
+.btn-align,
+.btn-bw {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-evenly;
+}
+
+.btn-bw {
+  justify-content: space-between;
 }
 
 #home-sub-header {

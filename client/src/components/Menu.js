@@ -21,13 +21,6 @@ export function Menu() {
           to="/profile"
         />
         <Smenu.Item
-          name="Find Events"
-          active={activeItem === "Find Events"}
-          onClick={handleItemClick}
-          as={Link}
-          to="/events"
-        />
-        <Smenu.Item
           name="Log Out"
           active={activeItem === "Log Out"}
           onClick={Auth.logout}

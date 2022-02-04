@@ -83,7 +83,7 @@ export default function Favourites({ userData }) {
         const removeFavResponse = await removeFavourite({
           variables: { _id: event._id },
         });
-        console.log(response);
+        console.log(response, removeFavResponse);
       } catch (err) {
         console.error(err);
       }

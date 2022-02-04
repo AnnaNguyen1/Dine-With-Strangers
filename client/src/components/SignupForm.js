@@ -45,7 +45,7 @@ const SignupForm = () => {
 
   return (
     <Form size="small" onSubmit={handleFormSubmit}>
-      <p>Can't wait for you to join in on the fun!</p>
+      {/* <p>Can't wait for you to join in on the fun!</p> */}
       {error === true ? (
         <Message negative size="small">
           <Message.Header>Error</Message.Header>

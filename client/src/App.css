@@ -24,7 +24,7 @@ form.ui.small.form {
   padding-top: 0;
 }
 
-.ui.form > p {
+.ui.form.p {
   margin-bottom: 1em;
 }
 
@@ -100,7 +100,8 @@ div.ui.card.event-card {
   margin: 4em;
 }
 
-form.ui.small.form {
+form.ui.small.form,
+div.ui.small.negative.message {
   font-style: normal;
 }
 
@@ -109,4 +110,13 @@ form.ui.small.form {
   text-align: center;
   margin: 2em;
   padding-top: 2em;
+}
+
+.date,
+.address {
+  font-size: 0.9em;
+}
+
+.date {
+  align-items: flex-end;
 }

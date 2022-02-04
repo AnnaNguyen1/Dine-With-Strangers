@@ -1,5 +1,6 @@
 import React from "react";
 import { Card as Scard, Image } from "semantic-ui-react";
+import { FormatDate } from "../utils/helpers";
 
 export function EventCard({
   image,
@@ -15,8 +16,10 @@ export function EventCard({
       <Scard.Content>
         <Scard.Header>{restaurantName}</Scard.Header>
         <Scard.Meta>
+          <span className="date">{FormatDate(dateTime)}</span>
+        </Scard.Meta>
+        <Scard.Meta>
           <span className="address">{restaurantAddress}</span>
-          <span className="date">{dateTime}</span>
         </Scard.Meta>
         <Scard.Description>{description}</Scard.Description>
       </Scard.Content>

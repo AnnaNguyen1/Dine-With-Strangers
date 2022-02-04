@@ -56,8 +56,8 @@ db.once("open", async () => {
     lastName: "Nguyen",
     email: "annatest@test.com",
     password: "annatest",
-    favourites: [events[0]],
-    attending: [events[1], events[2]],
+    favourites: [events[1], events[0]],
+    attending: [events[2]],
   });
   console.log("second user seeded");
 

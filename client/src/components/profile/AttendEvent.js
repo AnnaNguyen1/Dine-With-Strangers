@@ -1,7 +1,7 @@
 import React from "react";
 import { EventCard } from "../EventCard";
 import { useQuery, useMutation } from "@apollo/client";
-import { QUERY_EVENTS } from "../../utils/queries";
+import { QUERY_EVENTS, QUERY_ME } from "../../utils/queries";
 import { Card } from "semantic-ui-react";
 import { UNATTEND_EVENT, ADD_FAVOURITE } from "../../utils/mutations";
 import Auth from "../../utils/auth";
@@ -14,18 +14,20 @@ export default function AttendEvent({ userData }) {
   console.log(events);
 
   const userAttending = userData.attending;
-  console.log(userAttending);
+  const userFavourites = userData.favourites;
 
   // remove from "attending"
   const [unattendEvent] = useMutation(UNATTEND_EVENT, {
     update(cache, { data: { unattendEvent } }) {
       try {
-        const { events } = cache.readQuery({ query: QUERY_EVENTS });
-
+        const { me } = cache.readQuery({ query: QUERY_ME });
+        console.log({ me });
         cache.writeQuery({
-          query: QUERY_EVENTS,
+          query: QUERY_ME,
           data: {
-            events: events.filter((event) => event._id != unattendEvent._id),
+            me: userData.attending.filter(
+              (userAttending) => userData.attending._id !== unattendEvent._id
+            ),
           },
         });
       } catch (e) {
@@ -36,11 +38,11 @@ export default function AttendEvent({ userData }) {
   const [addToFavourite] = useMutation(ADD_FAVOURITE, {
     update(cache, { data: { favouriteEvent } }) {
       try {
-        const { events } = cache.readQuery({ query: QUERY_EVENTS });
+        const { me } = cache.readQuery({ query: QUERY_ME });
 
         cache.writeQuery({
-          query: QUERY_EVENTS,
-          data: { events: [...events, favouriteEvent] },
+          query: QUERY_ME,
+          data: { me: { favourites: [...events, favouriteEvent] } },
         });
       } catch (e) {
         console.error(e);
@@ -55,21 +57,31 @@ export default function AttendEvent({ userData }) {
     }
     try {
       const response = await unattendEvent({ variables: { _id: eventId } });
+      console.log(response);
     } catch (err) {
       console.error(err);
     }
   };
 
   const handleAddToFavourites = async (event) => {
-    // If event._id === userData.
     const token = Auth.loggedIn() ? Auth.getToken() : null;
     if (!token) {
       return false;
     }
+    // First add to favourites array
     try {
       const response = await addToFavourite({
         variables: { eventData: { ...event } },
       });
+      console.log(response);
+    } catch (err) {
+      console.error(err);
+    }
+
+    // Then remove from attending array
+    try {
+      const response = await unattendEvent({ variables: { _id: event._id } });
+      console.log(response);
     } catch (err) {
       console.error(err);
     }
@@ -108,12 +120,14 @@ export default function AttendEvent({ userData }) {
                           trigger={
                             <div>
                               <Btn
+                                basic={true}
+                                btnColor="orange"
                                 btnInfo="Unattend"
                                 onClick={() => handleUnattendEvent(event._id)}
                               />
                             </div>
                           }
-                          content={"Unattend Event"}
+                          content="Unattend Event"
                         />
                         <PopUp
                           trigger={
@@ -124,7 +138,7 @@ export default function AttendEvent({ userData }) {
                               />
                             </div>
                           }
-                          content={"Move to Favourites"}
+                          content="Move to Favourites"
                         />
                       </div>
                     }

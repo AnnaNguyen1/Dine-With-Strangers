@@ -33,15 +33,12 @@ const LoginForm = () => {
   };
   return (
     <Form size="small" onSubmit={handleFormSubmit}>
-      <h2>Log In</h2>
       {error === true ? (
         <Message negative size="tiny">
           <Message.Header>Error</Message.Header>
           <p>Incorrect credentials!</p>
         </Message>
-      ) : (
-        ""
-      )}
+      ) : null}
 
       <Form.Input
         label="Email"

@@ -45,7 +45,6 @@ const SignupForm = () => {
 
   return (
     <Form size="small" onSubmit={handleFormSubmit}>
-      <h2>Sign Up</h2>
       <p>Can't wait for you to join in on the fun!</p>
       {error === true ? (
         <Message negative size="small">
@@ -54,9 +53,7 @@ const SignupForm = () => {
             Invalid email address and/or password needs to exceed 5 characters!
           </p>
         </Message>
-      ) : (
-        ""
-      )}
+      ) : null}
       <Form.Input
         label="First Name"
         type="text"

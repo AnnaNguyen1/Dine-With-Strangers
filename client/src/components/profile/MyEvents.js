@@ -27,7 +27,7 @@ export default function MyEvents({ userData }) {
         cache.writeQuery({
           query: QUERY_EVENTS,
           data: {
-            events: events.filter((event) => event._id != deleteEvent._id),
+            events: events.filter((event) => event._id !== deleteEvent._id),
           },
         });
       } catch (e) {
@@ -49,45 +49,45 @@ export default function MyEvents({ userData }) {
       console.error(err);
     }
   };
+  console.log(filteredEvents[0]);
 
   return (
     <>
       {/**Combatting rendering issue */}
-      {userData._id === undefined ? (
-        <h3>Loading....</h3>
+      {userId === undefined ? <h3>Loading...</h3> : null}
+      {filteredEvents[0] === undefined ? (
+        <h3>You are not hosting any events.</h3>
       ) : (
-        <h3>Here are the events you are hosting:</h3>
-      )}
-      {events[0] === undefined ? (
-        <h3>Loading....</h3>
-      ) : (
-        <Card.Group centered>
-          {filteredEvents.map((event) => {
-            return (
-              <div key={event._id}>
-                <EventCard
-                  id={event._id}
-                  image={event.image}
-                  restaurantName={event.restaurantName}
-                  restaurantAddress={event.restaurantAddress}
-                  address={event.address}
-                  dateTime={event.eventDate}
-                  description={event.description}
-                  btnCards={
-                    <div className="btn-align">
-                      <EditEvent eventData={event} />
-                      <Btn
-                        btnInfo="Delete Event"
-                        btnColor="red"
-                        onClick={() => handleDeleteEvent(event._id)}
-                      />
-                    </div>
-                  }
-                />
-              </div>
-            );
-          })}
-        </Card.Group>
+        <>
+          <h3>Events you are hosting:</h3>
+          <Card.Group centered>
+            {filteredEvents.map((event) => {
+              return (
+                <div key={event._id}>
+                  <EventCard
+                    id={event._id}
+                    image={event.image}
+                    restaurantName={event.restaurantName}
+                    restaurantAddress={event.restaurantAddress}
+                    address={event.address}
+                    dateTime={event.eventDate}
+                    description={event.description}
+                    btnCards={
+                      <div className="btn-align">
+                        <EditEvent eventData={event} />
+                        <Btn
+                          btnInfo="Delete Event"
+                          btnColor="red"
+                          onClick={() => handleDeleteEvent(event._id)}
+                        />
+                      </div>
+                    }
+                  />
+                </div>
+              );
+            })}
+          </Card.Group>
+        </>
       )}
     </>
   );

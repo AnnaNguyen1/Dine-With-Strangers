@@ -31,6 +31,8 @@ const NavBar = () => {
               <Modal
                 trigger={<Button>Log In</Button>}
                 content={<LoginForm />}
+                header="Login"
+                size="tiny"
               />
               <Modal
                 trigger={
@@ -39,6 +41,8 @@ const NavBar = () => {
                   </Button>
                 }
                 content={<SignupForm />}
+                header="Sign Up"
+                size="tiny"
               />
             </li>
           </>

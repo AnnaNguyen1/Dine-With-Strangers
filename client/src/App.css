@@ -20,6 +20,14 @@ textarea {
   font-family: var(--poppins);
 }
 
+form.ui.small.form {
+  padding-top: 0;
+}
+
+.ui.form > p {
+  margin-bottom: 1em;
+}
+
 .navbar {
   padding: 2em;
   z-index: 9;

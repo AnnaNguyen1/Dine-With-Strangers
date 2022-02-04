@@ -114,11 +114,10 @@ const resolvers = {
       throw new AuthenticationError("You need to be logged in!");
     },
     attendEvent: async (root, { eventData }, context) => {
-      const newEvent = { eventData };
       if (context.user) {
         const updatedUser = await User.findOneAndUpdate(
           { _id: context.user._id },
-          { $push: { attending: newEvent } },
+          { $push: { attending: eventData } },
           { new: true }
         );
         return updatedUser;

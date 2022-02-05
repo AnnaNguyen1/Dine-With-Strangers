@@ -1,10 +1,12 @@
 const express = require("express");
 const path = require("path");
 const db = require("./config/connection");
-// const routes = require('./routes');
 const { ApolloServer } = require("apollo-server-express");
 const { typeDefs, resolvers } = require("./schemas");
 const { authMiddleware } = require("./utils/auth");
+const multer = require("multer");
+const upload = multer({ dest: "./assets" });
+const fs = require("fs");
 
 const app = express();
 const PORT = process.env.PORT || 3001;
@@ -29,6 +31,22 @@ app.use((req, res, next) => {
 if (process.env.NODE_ENV === "production") {
   app.use(express.static(path.join(__dirname, "../client/build")));
 }
+
+// image to save into assets folder and link to be saved as a string to mongodb
+// app.get("/profile", upload.single("image"), (req, res) => {
+//   let fileType = req.file.mimetype.split("/")[1];
+//   let newFileName = req.file.filename + "." + fileType;
+
+//   fs.rename(
+//     `./assets/${req.file.filename}`,
+//     `./assets/${newFileName}`,
+//     function () {
+//       console.log("cb");
+//       res.send("200");
+//     }
+//   );
+//   res.send("200");
+// });
 
 db.once("open", () => {
   app.listen(PORT, () => {

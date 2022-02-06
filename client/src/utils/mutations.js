@@ -51,6 +51,21 @@ export const ADD_EVENT = gql`
   }
 `;
 
+export const EDIT_EVENT = gql`
+  mutation editEvent($eventData: InputEvent) {
+    editEvent(eventData: $eventData) {
+      _id
+      restaurantName
+      restaurantAddress
+      image
+      eventDate
+      description
+      attendeeLimit
+      userId
+    }
+  }
+`;
+
 export const DELETE_EVENT = gql`
   mutation deleteEvent($_id: ID!) {
     deleteEvent(_id: $_id) {

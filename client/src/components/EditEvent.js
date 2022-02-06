@@ -32,7 +32,7 @@ export default function EditEvent({ eventData }) {
       open={openModal}
       content={
         <>
-          <Form className="form">
+          <Form className="form" size="small">
             <Form.Input
               fluid
               label="Restaurant Name"
@@ -70,7 +70,6 @@ export default function EditEvent({ eventData }) {
                 label="Maximum number of attendees"
                 placeholder="2"
                 name="attendeeLimit"
-                //   onChange={handleInputChange}
                 value={currentEventData.attendeeLimit}
                 onChange={handleInputChange}
               />
@@ -80,7 +79,6 @@ export default function EditEvent({ eventData }) {
               label="Description"
               placeholder="Tell everyone why you would like to go here...."
               name="description"
-              // onChange={handleInputChange}
               value={currentEventData.description}
               onChange={handleInputChange}
             />
@@ -90,7 +88,6 @@ export default function EditEvent({ eventData }) {
                 type="file"
                 accept="image/*"
                 name="image"
-                //   onChange={handleInputChange}
                 value={currentEventData.image}
                 onChange={handleInputChange}
               />
@@ -107,17 +104,6 @@ export default function EditEvent({ eventData }) {
               />
               <Btn onClick={() => setOpenModal(false)} btnInfo="Cancel" />
             </div>
-
-            {/* {submitted === true ? (
-              <Message positive>
-                <Message.Header>Event added!</Message.Header>
-                <p>
-                  Yay! Time to <b>meat</b> new people!
-                </p>
-              </Message>
-            ) : (
-              ""
-            )} */}
           </Form>
         </>
       }

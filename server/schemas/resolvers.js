@@ -76,11 +76,15 @@ const resolvers = {
       }
       throw new AuthenticationError("You need to be logged in!");
     },
-    editEvent: async (root, { _id, ...args }, context) => {
+    editEvent: async (root, args, context) => {
       if (context.user) {
-        const updatedEvent = await Event.findByIdAndUpdate(_id, ...args, {
-          new: true,
-        });
+        const updatedEvent = await Event.findOneAndUpdate(
+          { _id: args._id },
+          args,
+          {
+            new: true,
+          }
+        );
         return updatedEvent;
       }
 

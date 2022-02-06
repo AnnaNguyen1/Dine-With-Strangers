@@ -2,7 +2,7 @@ import React from "react";
 import { EventCard } from "../EventCard";
 import { useQuery, useMutation } from "@apollo/client";
 import { QUERY_EVENTS, QUERY_ME } from "../../utils/queries";
-import { Card } from "semantic-ui-react";
+import { Card, Icon } from "semantic-ui-react";
 import { UNATTEND_EVENT, ADD_FAVOURITE } from "../../utils/mutations";
 import Auth from "../../utils/auth";
 import { PopUp } from "../Popup";
@@ -14,7 +14,6 @@ export default function AttendEvent({ userData }) {
   console.log(events);
 
   const userAttending = userData.attending;
-  const userFavourites = userData.favourites;
 
   // remove from "attending"
   const [unattendEvent] = useMutation(UNATTEND_EVENT, {
@@ -120,6 +119,17 @@ export default function AttendEvent({ userData }) {
                           trigger={
                             <div>
                               <Btn
+                                btnInfo={<Icon name="heart outline" />}
+                                onClick={() => handleAddToFavourites(event)}
+                              />
+                            </div>
+                          }
+                          content="Move to Favourites"
+                        />
+                        <PopUp
+                          trigger={
+                            <div>
+                              <Btn
                                 basic={true}
                                 btnColor="orange"
                                 btnInfo="Unattend"
@@ -128,17 +138,6 @@ export default function AttendEvent({ userData }) {
                             </div>
                           }
                           content="Unattend Event"
-                        />
-                        <PopUp
-                          trigger={
-                            <div>
-                              <Btn
-                                btnInfo="Favourite"
-                                onClick={() => handleAddToFavourites(event)}
-                              />
-                            </div>
-                          }
-                          content="Move to Favourites"
                         />
                       </div>
                     }

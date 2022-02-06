@@ -13,8 +13,20 @@ import { ATTEND_EVENT, ADD_FAVOURITE } from "../utils/mutations";
 export default function EventList({ userData }) {
   const { data } = useQuery(QUERY_EVENTS);
   const events = data?.events || [];
-  const userEventsAttending = userData.attending;
-  const userEventsFavourited = userData.favourites;
+  const userEventsAttending = () => {
+    if (!userData) {
+      return [];
+    } else {
+      return userData.attending;
+    }
+  };
+  const userEventsFavourited = () => {
+    if (!userData) {
+      return [];
+    } else {
+      return userData.favourites;
+    }
+  };
 
   // AttendEvent
   const [alreadyAttendingMsg, setAlreadyAttendingMsg] = useState(false);
@@ -58,7 +70,7 @@ export default function EventList({ userData }) {
     }
 
     // Check to see if the event.Id already exists in the user's attending array
-    const checkAlreadyAttending = userEventsAttending.some(
+    const checkAlreadyAttending = userEventsAttending().some(
       (ele) => ele._id === event._id
     );
 
@@ -77,7 +89,7 @@ export default function EventList({ userData }) {
   };
 
   const handleAddToFavourites = async (event) => {
-    const checkAlreadyFavourited = userEventsFavourited.some(
+    const checkAlreadyFavourited = userEventsFavourited().some(
       (ele) => ele._id === event._id
     );
 

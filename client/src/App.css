@@ -71,6 +71,7 @@ h1 {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-evenly;
+  font-family: var(--poppins);
 }
 
 .btn-bw {

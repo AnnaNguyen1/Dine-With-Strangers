@@ -20,7 +20,8 @@ textarea,
 .ui.menu,
 input,
 .ui.button,
-.ui.card.content.header {
+.ui.card.content.header,
+.ui.form input[type="text"] {
   font-family: var(--poppins);
 }
 

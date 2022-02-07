@@ -2,15 +2,39 @@ import React, { useState } from "react";
 import { Icon, Form } from "semantic-ui-react";
 import { Modal } from "./Modal";
 import { Btn } from "./Btn";
+import { EDIT_EVENT } from "../utils/mutations";
+import { useMutation } from "@apollo/client";
+import { QUERY_EVENTS } from "../utils/queries";
 
 export default function EditEvent({ eventData }) {
   console.log("eventData", eventData);
 
   const [openModal, setOpenModal] = useState(false);
+  const [editEvent] = useMutation(EDIT_EVENT, {
+    update(cache, { data: { editEvent } }) {
+      try {
+        const { events } = cache.readQuery({ query: QUERY_EVENTS });
+
+        const newEvents = events.map((event) => {
+          if (event._id === editEvent._id) {
+            return editEvent;
+          }
+          return event;
+        });
+
+        cache.writeQuery({
+          query: QUERY_EVENTS,
+          data: { events: newEvents },
+        });
+      } catch (e) {
+        console.error(e);
+      }
+    },
+  });
+
   const [currentEventData, setCurrentEventData] = useState({
     restaurantName: eventData.restaurantName,
     restaurantAddress: eventData.restaurantAddress,
-    image: "",
     eventDate: eventData.eventDate,
     description: eventData.description,
     attendeeLimit: eventData.attendeeLimit,
@@ -24,6 +48,23 @@ export default function EditEvent({ eventData }) {
     setCurrentEventData({ ...eventData, [name]: value });
   };
 
+  const handleFormSubmit = async (e) => {
+    e.preventDefault();
+
+    try {
+      const { data } = await editEvent({
+        variables: {
+          eventData: {
+            ...eventData,
+            ...currentEventData,
+          },
+        },
+      });
+    } catch (err) {
+      console.log(err);
+    }
+    setOpenModal(false);
+  };
   return (
     <Modal
       trigger={<Btn btnInfo={<Icon name="pencil" />} />}
@@ -32,7 +73,7 @@ export default function EditEvent({ eventData }) {
       open={openModal}
       content={
         <>
-          <Form className="form" size="small">
+          <Form className="form" size="small" onSubmit={handleFormSubmit}>
             <Form.Input
               fluid
               label="Restaurant Name"
@@ -82,7 +123,7 @@ export default function EditEvent({ eventData }) {
               value={currentEventData.description}
               onChange={handleInputChange}
             />
-            <Form.Field>
+            {/* <Form.Field>
               <label>Image of Restaurant</label>
               <input
                 type="file"
@@ -91,7 +132,7 @@ export default function EditEvent({ eventData }) {
                 value={currentEventData.image}
                 onChange={handleInputChange}
               />
-            </Form.Field>
+            </Form.Field> */}
             <div className="btn-bw">
               <Btn
                 disabled={

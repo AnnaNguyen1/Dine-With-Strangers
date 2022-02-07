@@ -10,7 +10,8 @@ export function EventForm({ _id }) {
   const [event, setEvent] = useState({
     restaurantName: "",
     restaurantAddress: "",
-    image: "",
+    image:
+      "https://magnoliavillas.com/wp-content/uploads/2020/10/Dinner-horz-1024x768-1.jpg",
     eventDate: "",
     description: "",
     attendeeLimit: "",
@@ -124,7 +125,7 @@ export function EventForm({ _id }) {
           onChange={handleInputChange}
           value={event.description}
         />
-        <Sform.Field>
+        {/* <Sform.Field>
           <label>Image of Restaurant</label>
           <input
             type="file"
@@ -133,7 +134,7 @@ export function EventForm({ _id }) {
             onChange={handleInputChange}
             value={event.image}
           />
-        </Sform.Field>
+        </Sform.Field> */}
 
         <Sform.Button
           disabled={!(event.restaurantName && setAddress2 && event.eventDate)}

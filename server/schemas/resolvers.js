@@ -79,8 +79,8 @@ const resolvers = {
     editEvent: async (root, args, context) => {
       if (context.user) {
         const updatedEvent = await Event.findOneAndUpdate(
-          { _id: args._id },
-          args,
+          { _id: args.eventData._id },
+          args.eventData,
           {
             new: true,
           }

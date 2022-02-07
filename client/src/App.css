@@ -21,7 +21,10 @@ textarea,
 input,
 .ui.button,
 .ui.card.content.header,
-.ui.form input[type="text"] {
+.ui.form input[type="datetime-local"],
+.ui.form input[type="file"],
+.ui.form input[type="text"],
+.ui.cards > .card > .content > .header:not(.ui) {
   font-family: var(--poppins);
 }
 

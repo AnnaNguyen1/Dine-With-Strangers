@@ -16,7 +16,11 @@
   font-family: var(--lobster);
 }
 
-textarea {
+textarea,
+.ui.menu,
+input,
+.ui.button,
+.ui.card.content.header {
   font-family: var(--poppins);
 }
 

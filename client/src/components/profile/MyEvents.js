@@ -14,10 +14,7 @@ export default function MyEvents({ userData }) {
 
   const userId = userData._id;
 
-  // const [filteredEvents, setFilteredEvents] = useState("");
-
   const filteredEvents = getEventsWithUserId(events, userId);
-  console.log("filtered", filteredEvents);
 
   const [deleteEvent] = useMutation(DELETE_EVENT, {
     update(cache, { data: { deleteEvent } }) {
@@ -43,13 +40,10 @@ export default function MyEvents({ userData }) {
     }
     try {
       const response = await deleteEvent({ variables: { _id: eventId } });
-      console.log("response", response);
-      // setFilteredEvents((prev) => prev.map((e) => e.userId === userId));
     } catch (err) {
       console.error(err);
     }
   };
-  console.log(filteredEvents[0]);
 
   return (
     <>
@@ -94,7 +88,6 @@ export default function MyEvents({ userData }) {
 }
 
 function getEventsWithUserId(events, userId) {
-  console.log(events);
   if (!userId) {
     return [];
   }

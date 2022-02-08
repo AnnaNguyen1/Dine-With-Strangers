@@ -11,7 +11,6 @@ import { Btn } from "../Btn";
 export default function AttendEvent({ userData }) {
   const { data } = useQuery(QUERY_EVENTS);
   const events = data?.events || [];
-  console.log(events);
 
   const userAttending = userData.attending;
 
@@ -20,7 +19,6 @@ export default function AttendEvent({ userData }) {
     update(cache, { data: { unattendEvent } }) {
       try {
         const { me } = cache.readQuery({ query: QUERY_ME });
-        console.log({ me });
         cache.writeQuery({
           query: QUERY_ME,
           data: {

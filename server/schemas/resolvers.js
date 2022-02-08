@@ -50,7 +50,6 @@ const resolvers = {
     },
     addUser: async (root, { firstName, lastName, email, password }) => {
       let user = await User.findOne({ email });
-      console.log(user);
       if (user) {
         throw new UserInputError("Email already exists", {
           errors: {
@@ -60,9 +59,7 @@ const resolvers = {
       }
 
       user = await User.create({ firstName, lastName, email, password });
-      console.log(user);
       const token = signToken(user);
-      console.log(token);
       return { token, user };
     },
     addEvent: async (root, { eventData }, context) => {
@@ -123,7 +120,6 @@ const resolvers = {
           { $pull: { favourites: { _id: eventId } } },
           { new: true }
         );
-        console.log(updatedUser);
         return updatedUser;
       }
       throw new AuthenticationError("You need to be logged in!");

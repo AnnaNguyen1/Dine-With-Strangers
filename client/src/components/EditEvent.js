@@ -7,8 +7,6 @@ import { useMutation } from "@apollo/client";
 import { QUERY_EVENTS } from "../utils/queries";
 
 export default function EditEvent({ eventData }) {
-  console.log("eventData", eventData);
-
   const [openModal, setOpenModal] = useState(false);
   const [editEvent] = useMutation(EDIT_EVENT, {
     update(cache, { data: { editEvent } }) {
@@ -39,8 +37,6 @@ export default function EditEvent({ eventData }) {
     description: eventData.description,
     attendeeLimit: eventData.attendeeLimit,
   });
-
-  console.log("currentEventData", currentEventData);
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;

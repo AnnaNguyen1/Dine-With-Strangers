@@ -64,7 +64,6 @@ export default function Favourites({ userData }) {
   };
 
   const handleAttendEvent = async (event) => {
-    console.log("attendEventdata", event);
     const token = Auth.loggedIn() ? Auth.getToken() : null;
     if (!token) {
       return false;
